@@ -19,6 +19,7 @@ defineProps<{
                             <AppLogoIcon class="size-9 fill-current text-[var(--foreground)] dark:text-white" />
                         </div>
                         <span class="sr-only">{{ title }}</span>
+                        
                     </Link>
                     <div class="space-y-2 text-center">
                         <h1 class="text-xl font-medium">{{ title }}</h1>
