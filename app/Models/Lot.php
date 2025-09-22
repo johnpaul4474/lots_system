@@ -9,24 +9,26 @@ class Lot extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['lot_number', 'barangay_id'];
+ protected $fillable = [
+        'lot_number',
+        'barangay_id',
+        'lot_ldc',
+        'lot_map',
+    ];
 
-    // Lot belongs to a Barangay
+    public function ldc()
+    {
+        return $this->belongsTo(LotLdc::class, 'lot_ldc');
+    }
+
+    public function map()
+    {
+        return $this->belongsTo(LotMap::class, 'lot_map');
+    }
+
     public function barangay()
     {
-        return $this->belongsTo(Barangay::class);
-    }
-
-    // Lot has one LDC (PDF)
-    public function lot_ldc()
-    {
-        return $this->hasOne(LotLdc::class, 'lot_id', 'id');
-    }
-
-    // Lot has one Map (PNG)
-    public function lot_map()
-    {
-        return $this->hasOne(LotMap::class, 'lot_id', 'id');
+        return $this->belongsTo(Barangay::class, 'barangay_id');
     }
 }
 

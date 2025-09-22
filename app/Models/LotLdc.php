@@ -10,10 +10,11 @@ class LotLdc extends Model
     use HasFactory;
 
     
-    protected $fillable = ['lot_id', 'file_path', 'file_name'];
-    public function lot()
+       protected $fillable = ['file_name', 'file_path'];
+
+    public function lots()
     {
-        return $this->belongsTo(Lot::class, 'lot_id', 'id');
+        return $this->hasMany(Lot::class, 'lot_map', 'id');
     }
 }
 

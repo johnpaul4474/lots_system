@@ -20,8 +20,15 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            LotLdcSeeder::class,
+            
+            RegionSeeder::class,
+            ProvinceSeeder::class,
+            MunicipalitySeeder::class,
+            BarangaySeeder::class,
+            
             LotMapSeeder::class,
+            LotLdcSeeder::class,
+            LotsTableSeeder::class,
         ]);
     }
 }
