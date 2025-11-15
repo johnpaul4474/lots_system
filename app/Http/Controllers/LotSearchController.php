@@ -11,13 +11,13 @@ class LotSearchController extends Controller
     {
         $lots = Lot::with([
             'barangay.municipality.province.region',
-            'lot_ldc',
-            'lot_map'
+            'ldc',
+            'map'
         ]);
 
         // Filters
         if ($request->filled('lot_number')) {
-            $lots->where('lot_number', '=', $request->lot_number);
+            $lots->where('lot_number', $request->lot_number);
         }
 
         if ($request->filled('barangay_id')) {
@@ -44,23 +44,14 @@ class LotSearchController extends Controller
 
         $lots = $lots->get();
 
-        // Convert BLOBs to Base64
+        // Convert file paths to URLs
         $lots->transform(function ($lot) {
-            if ($lot->lot_ldc) {
-                $lot->lot_ldc_url = asset('storage/' . $lot->lot_ldc->file_path);
-            } else {
-                $lot->lot_ldc_url = null;
-            }
-
-            if ($lot->lot_map) {
-                $lot->lot_map_url = asset('storage/' . $lot->lot_map->file_path);
-            } else {
-                $lot->lot_map_url = null;
-            }
+            $lot->lot_ldc_url = $lot->ldc ? asset($lot->ldc->file_path) : null;
+            $lot->lot_map_url = $lot->map ? asset($lot->map->file_path) : null;
 
             return $lot;
         });
-
+        
         return response()->json($lots);
     }
 }

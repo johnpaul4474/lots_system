@@ -35,3 +35,6 @@ export interface User {
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
+
+
+export const referencePoints = () => route('reference-points.index');

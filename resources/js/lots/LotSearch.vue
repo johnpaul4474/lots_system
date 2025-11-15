@@ -166,8 +166,8 @@ interface Lot {
             };
         };
     };
-    lot_ldc?: { file_path: string; file_name: string };
-    lot_map?: { file_path: string; file_name: string };
+    lot_ldc: { file_path: string; file_name: string };
+    lot_map: { file_path: string; file_name: string };
 }
 
 // Dropdowns
@@ -251,6 +251,8 @@ const searchLots = async () => {
     lots.value = res.data;
     lot.value = lots.value.length > 0 ? lots.value[0] : null; // Set the found lot
     searched.value = true; // Ensure this is set so the result message and button show
+
+
 };
 
 // Reset filters
@@ -268,16 +270,48 @@ const resetFilters = () => {
     //searchLots();
 };
 
-const viewFile = (type: string) => {
-    if (!lot.value) return;
-    if (type === 'ldc' && lot.value.lot_ldc) {
-        window.open(`${lot.value.lot_ldc.file_path}`, '_blank');
+// const viewFile = (type: string) => {
+   
+    
+//     if (!lot.value) return;
+//     if (type === 'ldc' && lot.value.lot_ldc) {
+//          console.log('type:', type);
+//         console.log('lot.value:', lot.value);       
+        
+//         console.log('lot_map:', lot.value?.lot_map);
+//         window.open(`${lot.value.lot_ldc.file_path}`, '_blank');
+//     }
+//     if (type === 'map' && lot.value.lot_map) {
+//         window.open(`${lot.value.lot_map.file_path}`, '_blank');
+//     }
+// };
+
+const viewFile = async (type: string) => {
+    // If no lot is selected, exit the function
+    if (!lot.value) {
+        console.error('No lot data available.');
+        return;
     }
-    if (type === 'map' && lot.value.lot_map) {
-        window.open(`${lot.value.lot_map.file_path}`, '_blank');
+
+    // Check if the type is 'ldc' and the lot_ldc_url property exists
+    if (type === 'ldc' && lot.value.lot_ldc_url) {
+        console.log('type:', type);
+        console.log('lot.value:', lot.value);
+        console.log('url:', lot.value.lot_ldc_url);
+
+        // Open the URL directly from the top-level property
+        window.open(lot.value.lot_ldc_url, '_blank');
+    }
+
+    // You can apply the same logic for the lot map
+    if (type === 'map' && lot.value.lot_map_url) {
+        console.log('type:', type);
+        console.log('lot.value:', lot.value);
+        console.log('url:', lot.value.lot_map_url);
+
+        window.open(lot.value.lot_map_url, '_blank');
     }
 };
-
 // Cascading watchers
 watch(
     () => filters.value.region_id,

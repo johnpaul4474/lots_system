@@ -19,8 +19,8 @@ class LotMapSeeder extends Seeder
             $maps[] = [
                 'id'        => $i,
                 'lot_id'=> $i,
-                'file_name' => "lot_{$i}.png",
-                'file_path' => "storage/lot_maps/lot_{$i}.png",
+                'file_name' => "lot_{$i}.jpg",
+                'file_path' => "storage/lot_maps/lot_{$i}.jpg",
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
